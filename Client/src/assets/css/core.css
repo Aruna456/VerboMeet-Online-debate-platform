@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+    background-image: url('https://images.app.goo.gl/5fFSUkhH77uEN3Tt9');
+    background-size: cover;
+    background-position: center;
+  }
