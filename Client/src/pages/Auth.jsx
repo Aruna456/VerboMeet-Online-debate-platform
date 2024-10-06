@@ -1,17 +1,53 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Photo from "../assets/img/Debatebg.jpg"; // Background image
+import Photo from "../assets/img/Debatebg.jpg"; 
 
 const Auth = () => {
-    const [isSignUp, setIsSignUp] = useState(true); // Toggle between Sign In and Sign Up
+    const [isSignUp, setIsSignUp] = useState(true); 
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Placeholder for form submit logic (authentication)
-        // After successful login/signup
-        navigate('/feed'); // Redirect to feed page after login/signup
+
+        const formData = isSignUp
+        ? {
+            name: e.target[0].value,
+            email: e.target[1].value,
+            password: e.target[2].value,
+            confirmPassword: e.target[3].value,
+        }
+        : {
+            email: e.target[0].value,
+            password: e.target[1].value,
+        };
+
+        console.log("Sending the following data:", formData);  
+
+        
+
+        try {
+            const response = await fetch(isSignUp ? 'http://localhost:5000/api/auth/signup' : 'http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+            console.log('Response status:', response.status);
+            console.log('Response data:', data);
+            if (response.ok) {
+                console.log("Success:", data);
+                navigate('/feed'); 
+            } else {
+                alert(data.message || 'Authentication failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Something went wrong!');
+        }
     };
 
     const toggleAuthMode = () => {
