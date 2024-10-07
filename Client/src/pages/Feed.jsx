@@ -1,5 +1,20 @@
 import React, { useState } from "react";
-import defaultProfileImg from "../assets/img/debate.png"; // Default profile image
+import defaultProfileImg from "../assets/img/debate.png"; 
+
+
+// useEffect(() => {
+//     const fetchDebates = async () => {
+//         try {
+//             const response = await fetch('http://localhost:5000/api/debates/all');
+//             const data = await response.json();
+//             setDebates(data);
+//         } catch (error) {
+//             console.error('Error fetching debates:', error);
+//         }
+//     };
+
+//     fetchDebates();
+// }, []);
 
 function Feed() {
     const [debates, setDebates] = useState([
@@ -41,6 +56,7 @@ function Feed() {
         location: "",
     });
 
+
     const filteredDebates = debates.filter((debate) =>
         debate.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -73,19 +89,83 @@ function Feed() {
         }
     };
 
-    const handleAddDebate = () => {
+    const handleAddDebate = async (e) => {
+        e.preventDefault();
+    
         if (newDebate.title && newDebate.description && newDebate.date && newDebate.time && newDebate.location) {
-            setDebates([...debates, newDebate]);
-            setNewDebate({
-                title: "",
-                description: "",
-                date: "",
-                time: "",
-                location: "",
-            });
-            toggleAddDebatePopup();
+            try {
+                const response = await fetch('http://localhost:5000/api/debates/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newDebate),
+                });
+    
+                const data = await response.json();
+                if (response.ok) {
+                    setDebates([...debates, data.newDebate]);
+                    setNewDebate({
+                        title: "",
+                        description: "",
+                        date: "",
+                        time: "",
+                        location: "",
+                    });
+                    toggleAddDebatePopup();
+                } else {
+                    alert(data.message || 'Failed to add debate');
+                }
+            } catch (error) {
+                console.error('Error adding debate:', error);
+                alert('Something went wrong!');
+            }
         }
     };
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const formData = isSignUp
+        ? {
+            name: e.target[0].value,
+            email: e.target[1].value,
+            password: e.target[2].value,
+            confirmPassword: e.target[3].value,
+        }
+        : {
+            email: e.target[0].value,
+            password: e.target[1].value,
+        };
+
+        console.log("Sending the following data:", formData);  
+
+        
+
+        try {
+            const response = await fetch(isSignUp ? 'http://localhost:5000/api/auth/signup' : 'http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+            console.log('Response status:', response.status);
+            console.log('Response data:', data);
+            if (response.ok) {
+                console.log("Success:", data);
+                navigate('/feed'); 
+            } else {
+                alert(data.message || 'Authentication failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Something went wrong!');
+        }
+    };
+
 
     return (
         <div className="min-h-screen bg-gray-100 flex">
