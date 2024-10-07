@@ -20,6 +20,23 @@ router.post('/add', async (req, res) => {
     }
 });
 
+router.put('/edit/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedDebate = await Debate.findByIdAndUpdate(id, req.body, { new: true });
+
+        if (!updatedDebate) {
+            return res.status(404).json({ message: 'Debate not found' });
+        }
+
+        res.status(200).json(updatedDebate);
+    } catch (error) {
+        console.error('Error updating debate:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
 router.delete('/delete/:id', async (req, res) => {
     try {
         const { id } = req.params;  // Extract the debate ID from the URL parameters

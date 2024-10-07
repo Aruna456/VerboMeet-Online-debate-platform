@@ -39,6 +39,16 @@ function Feed() {
         location: "",
     });
 
+    const [isEditDebatePopupOpen, setIsEditDebatePopupOpen] = useState(false);
+    const [editDebate, setEditDebate] = useState({
+        title: "",
+        description: "",
+        date: "",
+        time: "",
+        location: "",
+    });
+
+
 
     const filteredDebates = debates.filter((debate) =>
         debate.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -71,6 +81,61 @@ function Feed() {
             reader.readAsDataURL(file);
         }
     };
+
+    const toggleEditDebatePopup = (debate) => {
+        setEditDebate({
+            title: debate.title,
+            description: debate.description,
+            date: debate.date,
+            time: debate.time,
+            location: debate.location,
+        });
+        setSelectedDebate(debate); 
+        setIsEditDebatePopupOpen(!isEditDebatePopupOpen);
+    };
+    
+
+    const handleEditDebate = async (e) => {
+        e.preventDefault();
+    
+        if (!selectedDebate) {
+            console.error('No debate selected for editing');
+            alert('No debate selected for editing!');
+            return;  // Early exit if there's no selected debate
+        }
+    
+        try {
+            const response = await fetch(`http://localhost:5000/api/debates/edit/${selectedDebate._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(editDebate),
+            });
+    
+            if (response.ok) {
+                const updatedDebate = await response.json();
+                setDebates(debates.map(debate => debate._id === updatedDebate._id ? updatedDebate : debate));
+                setEditDebate({
+                    title: "",
+                    description: "",
+                    date: "",
+                    time: "",
+                    location: "",
+                });
+                setIsEditDebatePopupOpen(false); // Close the popup after successful edit
+            } else {
+                const data = await response.json();
+                alert(data.message || 'Failed to edit debate');
+            }
+        } catch (error) {
+            console.error('Error editing debate:', error);
+            alert('Something went wrong!');
+        }
+    };
+    
+    
+    
 
     const handleAddDebate = async (e) => {
         e.preventDefault();
@@ -244,10 +309,11 @@ function Feed() {
                                                     Explore
                                                 </button>
                                                 <div className="flex space-x-2 h-8 mb-4">
-                                                <button
-                                                    className="bg-yellow-400 text-white p-2 rounded-full"
-                                                    onClick={() => handleEditDebate(debate)}  // Edit handler
-                                                >
+                                                    
+                                                    <button className="bg-yellow-400 text-white p-2 rounded-full"
+                                                        onClick={() => toggleEditDebatePopup(debate)}  // Edit handler
+                                                        aria-label={`Edit debate: ${debate.title}`}  // Accessibility improvement
+                                                    >
                                                     <i className="fas fa-pencil-alt h-2"></i>
                                                 </button>
                                                 <button
@@ -341,6 +407,65 @@ function Feed() {
                         </div>
                     </div>
                 )}
+
+                {/* Edit Debate Popup */}
+                {isEditDebatePopupOpen && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
+                        <div className="bg-white rounded-lg p-6 w-80">
+                            <h2 className="text-xl font-bold mb-4">Edit Debate</h2>
+                            <form onSubmit={handleEditDebate}>
+                                <input
+                                    type="text"
+                                    placeholder="Title"
+                                    value={editDebate.title}
+                                    onChange={(e) => setEditDebate({ ...editDebate, title: e.target.value })}
+                                    className="border px-4 py-2 w-full rounded mb-4"
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Description"
+                                    value={editDebate.description}
+                                    onChange={(e) => setEditDebate({ ...editDebate, description: e.target.value })}
+                                    className="border px-4 py-2 w-full rounded mb-4"
+                                />
+                                <input
+                                    type="date"
+                                    placeholder="Date"
+                                    value={editDebate.date}
+                                    onChange={(e) => setEditDebate({ ...editDebate, date: e.target.value })}
+                                    className="border px-4 py-2 w-full rounded mb-4"
+                                />
+                                <input
+                                    type="time"
+                                    placeholder="Time"
+                                    value={editDebate.time}
+                                    onChange={(e) => setEditDebate({ ...editDebate, time: e.target.value })}
+                                    className="border px-4 py-2 w-full rounded mb-4"
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Location"
+                                    value={editDebate.location}
+                                    onChange={(e) => setEditDebate({ ...editDebate, location: e.target.value })}
+                                    className="border px-4 py-2 w-full rounded mb-4"
+                                />
+                                <button
+                                    className="bg-blue-500 text-white rounded-md py-2 px-4 w-full"
+                                    type="submit"
+                                >
+                                    Save Changes
+                                </button>
+                                <button
+                                    className="mt-2 text-red-500 hover:underline"
+                                    onClick={toggleEditDebatePopup}
+                                >
+                                    Close
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                )}
+
 
                 {/* Add Debate Popup */}
                 {isAddDebatePopupOpen && (
