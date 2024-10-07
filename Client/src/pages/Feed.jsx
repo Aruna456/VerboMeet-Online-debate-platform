@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from "react";
 import defaultProfileImg from "../assets/img/debate.png"; 
-
+import { useNavigate } from "react-router-dom";
 
 
 function Feed() {
@@ -236,6 +236,14 @@ function Feed() {
         }
     };
 
+    const navigate=useNavigate()
+
+    const handleRegister =()=>{
+
+        navigate('/register')
+
+    }
+
 
     return (
         <div className="min-h-screen bg-gray-100 flex">
@@ -409,7 +417,7 @@ function Feed() {
                             <p className="mb-4">Date: <span className="font-semibold">2024-10-15</span></p>
                             <p className="mb-4">Time: <span className="font-semibold">14:00</span></p>
                             <p className="mb-4">Location: <span className="font-semibold">Debate Hall 1</span></p>
-                            <button className="bg-blue-500 text-white rounded-md py-2 px-4 w-full">
+                            <button  onClick={handleRegister} className="bg-blue-500 text-white rounded-md py-2 px-4 w-full">
                                 Register
                             </button>
                            
