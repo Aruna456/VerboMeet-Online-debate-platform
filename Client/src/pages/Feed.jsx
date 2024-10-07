@@ -1,43 +1,26 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import defaultProfileImg from "../assets/img/debate.png"; 
 
 
-// useEffect(() => {
-//     const fetchDebates = async () => {
-//         try {
-//             const response = await fetch('http://localhost:5000/api/debates/all');
-//             const data = await response.json();
-//             setDebates(data);
-//         } catch (error) {
-//             console.error('Error fetching debates:', error);
-//         }
-//     };
-
-//     fetchDebates();
-// }, []);
 
 function Feed() {
-    const [debates, setDebates] = useState([
-        { title: "Social Media's Influence on Mental Health", description: "Discuss the pros and cons of social media and its effects on mental well-being." },
-        { title: "The Future of Electric Cars", description: "Explore the role of electric cars in combating climate change and their future impact on the auto industry." },
-        { title: "Universal Basic Income (UBI)", description: "Should governments provide a guaranteed income to all citizens to reduce poverty?" },
-        { title: "Cryptocurrency: The Future of Finance?", description: "Examine the rise of cryptocurrencies and their potential to replace traditional currencies." },
-        { title: "Mandatory Vaccination for Public Health", description: "Debate the necessity and ethics of making vaccines mandatory to combat disease outbreaks." },
-        { title: "Should College Education Be Free?", description: "Discuss whether higher education should be free for all or if students should pay for it." },
-        { title: "Work From Home: The New Normal?", description: "Analyze the benefits and challenges of remote work in a post-pandemic world." },
-        { title: "Legalizing Marijuana", description: "The pros and cons of legalizing marijuana for recreational and medicinal use." },
-        { title: "Climate Change: Are We Doing Enough?", description: "Evaluate the global efforts to combat climate change and its urgency." },
-        { title: "Should Voting Be Mandatory?", description: "Discuss whether compulsory voting should be introduced to increase democratic participation." },
-        { title: "Banning Plastic: A Solution to Pollution?", description: "Explore the impact of banning plastic and its potential to reduce pollution and protect wildlife." },
-        { title: "The Ethics of Animal Testing", description: "Debate whether animal testing for scientific and cosmetic purposes is justified." },
-        { title: "Privacy vs. National Security", description: "Where should the line be drawn between personal privacy and ensuring national security?" },
-        { title: "Online Learning vs. Traditional Classrooms", description: "Compare the effectiveness of online learning with traditional classroom education." },
-        { title: "The Role of Governments in Controlling Social Media", description: "Should governments regulate social media platforms to prevent the spread of misinformation?" },
-        { title: "Nuclear Energy: Solution or Threat?", description: "Debate whether nuclear energy is a viable solution to energy needs or a dangerous threat." },
-        { title: "The Death Penalty: Should It Be Abolished?", description: "Examine the arguments for and against the use of the death penalty in criminal justice systems." },
-        { title: "Universal Healthcare: A Right or a Privilege?", description: "Should healthcare be considered a basic right for all citizens, or a service to be paid for?" },
-        { title: "Genetic Engineering: Playing God?", description: "Discuss the ethical implications of genetic engineering in humans, animals, and agriculture." },
-    ]);
+    const [debates, setDebates] = useState([]);
+
+
+    useEffect(() => {
+        const fetchDebates = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/debates/all');
+                const data = await response.json();
+                setDebates(data);
+            } catch (error) {
+                console.error('Error fetching debates:', error);
+            }
+        };
+    
+        fetchDebates();
+    }, []);
+    
 
     const [searchQuery, setSearchQuery] = useState("");
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -122,6 +105,28 @@ function Feed() {
             }
         }
     };
+
+    const handleDeleteDebate = async (debateId) => {
+        if (window.confirm("Are you sure you want to delete this debate?")) {
+            try {
+                const response = await fetch(`http://localhost:5000/api/debates/delete/${debateId}`, {
+                    method: 'DELETE',
+                });
+    
+                if (response.ok) {
+                    setDebates(debates.filter((debate) => debate._id !== debateId));
+                    alert('Debate deleted successfully');
+                } else {
+                    const data = await response.json();
+                    alert(data.message || 'Failed to delete debate');
+                }
+            } catch (error) {
+                console.error('Error deleting debate:', error);
+                alert('Something went wrong!');
+            }
+        }
+    };
+    
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -227,20 +232,33 @@ function Feed() {
                             <div className="flex flex-wrap -mx-4">
                                 {filteredDebates.length > 0 ? (
                                     filteredDebates.map((debate, index) => (
-                                        <div
-                                            key={index}
-                                            className="mb-6 p-4 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4"
-                                        >
+                                        <div key={index} className="mb-6 p-4 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4">
                                             <div className="h-full flex flex-col border rounded bg-gray-50 shadow-md transition-transform transform hover:scale-105">
                                                 <h2 className="font-bold text-lg p-4 flex-grow">{debate.title}</h2>
                                                 <p className="text-gray-700 px-4 pb-4 flex-grow">{debate.description}</p>
+                                                <div className="flex justify-between items-center px-4 py-2">
                                                 <button
-                                                    className="mb-4 bg-sky-300 text-white px-3 py-1 rounded-full self-center"
+                                                    className="mb-4 bg-sky-300 text-white px-3 py-1 rounded-full "
                                                     onClick={() => toggleDebateDetailsPopup(debate)}
                                                 >
                                                     Explore
                                                 </button>
+                                                <div className="flex space-x-2 h-8 mb-4">
+                                                <button
+                                                    className="bg-yellow-400 text-white p-2 rounded-full"
+                                                    onClick={() => handleEditDebate(debate)}  // Edit handler
+                                                >
+                                                    <i className="fas fa-pencil-alt h-2"></i>
+                                                </button>
+                                                <button
+                                                    className="bg-red-500 text-white p-2 rounded-full"
+                                                    onClick={() => handleDeleteDebate(debate._id)}  // Delete handler
+                                                >
+                                                    <i className="fas fa-trash h-1" ></i>
+                                                </button>
                                             </div>
+                                            </div>
+                                        </div>
                                         </div>
                                     ))
                                 ) : (

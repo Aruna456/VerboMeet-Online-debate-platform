@@ -5,7 +5,9 @@ import About from "./pages/About.jsx"
 import Contact from "./pages/Contact.jsx"
 import Auth from "./pages/Auth.jsx"
 import Profile from "./pages/Profile.jsx";
-import Feed from "./pages/Feed.jsx";
+import Feed from "./pages/Feed.jsx";import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
 const App = () => {
   return (
    <>

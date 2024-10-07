@@ -20,6 +20,24 @@ router.post('/add', async (req, res) => {
     }
 });
 
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const { id } = req.params;  // Extract the debate ID from the URL parameters
+        
+        const deletedDebate = await Debate.findByIdAndDelete(id);  // Find and delete the debate by ID
+
+        if (!deletedDebate) {
+            return res.status(404).json({ message: 'Debate not found' });  // If no debate found, return a 404 response
+        }
+
+        res.status(200).json({ message: 'Debate deleted successfully' });  // Send a success response
+    } catch (error) {
+        console.error('Error deleting debate:', error);
+        res.status(500).json({ message: 'Server error' });  // Handle server errors
+    }
+});
+
+
 router.get('/all', async (req, res) => {
     try {
         const debates = await Debate.find();
