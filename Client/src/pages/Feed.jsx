@@ -336,17 +336,17 @@ function Feed() {
                                                 </button>
                                                 <div className="flex space-x-2 h-8 mb-4">
                                                     
-                                                    <button className="hover:bg-yellow-500 hover:text-white text-yellow-400 p-2 rounded-full"
+                                                    <button className="hover:bg-yellow-500 hover:text-white text-yellow-400  rounded-full"
                                                         onClick={() => toggleEditDebatePopup(debate)}  // Edit handler
                                                         aria-label={`Edit debate: ${debate.title}`}  // Accessibility improvement
                                                     >
-                                                    <i className="fas fa-pencil-alt w-4"></i>
+                                                    <i className="fas fa-pencil-alt w-10"></i>
                                                 </button>
                                                 <button
-                                                    className="hover:bg-red-500 hover:text-white text-red-600 p-2 rounded-full"
+                                                    className="hover:bg-red-500 hover:text-white text-red-600 rounded-full"
                                                     onClick={() => handleDeleteDebate(debate._id)}  // Delete handler
                                                 >
-                                                    <i className="fas fa-trash w-4 " ></i>
+                                                    <i className="fas fa-trash w-10 " ></i>
                                                 </button>
                                             </div>
                                             </div>
