@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Photo from "../assets/img/Debatebg.jpg"; 
+import "../assets/css/auth.css"
 
 const Auth = () => {
     const [isSignUp, setIsSignUp] = useState(true); 
@@ -11,20 +12,18 @@ const Auth = () => {
         e.preventDefault();
 
         const formData = isSignUp
-        ? {
-            name: e.target[0].value,
-            email: e.target[1].value,
-            password: e.target[2].value,
-            confirmPassword: e.target[3].value,
-        }
-        : {
-            email: e.target[0].value,
-            password: e.target[1].value,
-        };
+            ? {
+                name: e.target[0].value,
+                email: e.target[1].value,
+                password: e.target[2].value,
+                confirmPassword: e.target[3].value,
+            }
+            : {
+                email: e.target[0].value,
+                password: e.target[1].value,
+            };
 
         console.log("Sending the following data:", formData);  
-
-        
 
         try {
             const response = await fetch(isSignUp ? 'http://localhost:5000/api/auth/signup' : 'http://localhost:5000/api/auth/login', {
@@ -55,77 +54,79 @@ const Auth = () => {
     };
 
     return (
-        <div className="w-screen h-screen overflow-hidden flex justify-center items-center"
+        <div className="w-screen h-screen  overflow-hidden flex justify-center items-center"
              style={{ backgroundImage: `url(${Photo})`, backgroundSize: 'cover' }}>
             <Navbar />
-            <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-8 relative">
-                <h2 className="text-center font-bold text-3xl mb-6">
-                    {isSignUp ? "Sign Up" : "Sign In"}
-                </h2>
-
-                <form className="flex flex-col" onSubmit={handleSubmit}>
-                    {isSignUp && (
+            <div className="wrapper p-8 rounded-lg shadow-lg w-30  relative">
+                <div className="card-switch pb-20">
+                    <label className="switch">
                         <input
-                            type="text"
-                            placeholder="Name"
-                            className="mb-4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            required
+                            type="checkbox"
+                            className="toggle"
+                            onChange={toggleAuthMode}
+                            checked={!isSignUp} 
                         />
-                    )}
+                        <span className="slider"></span>
+                        <span className="card-side"></span>
+                        <div className="flip-card__inner">
+                            <div className={`flip-card__front ${!isSignUp ? 'hidden' : ''}`}>
+                                <div className="title">Sign Up</div>
+                                <form className="flip-card__form" onSubmit={handleSubmit}>
+                                    <input
+                                        className="flip-card__input"
+                                        name="name"
+                                        placeholder="Name"
+                                        type="text"
+                                        required
+                                    />
+                                    <input
+                                        className="flip-card__input"
+                                        name="email"
+                                        placeholder="Email"
+                                        type="email"
+                                        required
+                                    />
+                                    <input
+                                        className="flip-card__input"
+                                        name="password"
+                                        placeholder="Password"
+                                        type="password"
+                                        required
+                                    />
+                                    <input
+                                        className="flip-card__input"
+                                        name="confirmPassword"
+                                        placeholder="Confirm Password"
+                                        type="password"
+                                        required
+                                    />
+                                    <button className="flip-card__btn">Confirm!</button>
+                                </form>
+                            </div>
 
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        className="mb-4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        required
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        className="mb-4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        required
-                    />
-
-                    {isSignUp && (
-                        <input
-                            type="password"
-                            placeholder="Confirm Password"
-                            className="mb-4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            required
-                        />
-                    )}
-
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
-                    >
-                        {isSignUp ? "Create Account" : "Log In"}
-                    </button>
-                </form>
-
-                <div className="text-center mt-4">
-                    {isSignUp ? (
-                        <p>
-                            Already have an account?{" "}
-                            <span
-                                className="text-blue-500 cursor-pointer"
-                                onClick={toggleAuthMode}
-                            >
-                                Sign In
-                            </span>
-                        </p>
-                    ) : (
-                        <p>
-                            Don't have an account?{" "}
-                            <span
-                                className="text-blue-500 cursor-pointer"
-                                onClick={toggleAuthMode}
-                            >
-                                Sign Up
-                            </span>
-                        </p>
-                    )}
-                </div>
+                            <div className={`flip-card__back ${isSignUp ? 'hidden' : ''}`}>
+                                <div className="title">Log In</div>
+                                <form className="flip-card__form" onSubmit={handleSubmit}>
+                                    <input
+                                        className="flip-card__input"
+                                        name="email"
+                                        placeholder="Email"
+                                        type="email"
+                                        required
+                                    />
+                                    <input
+                                        className="flip-card__input"
+                                        name="password"
+                                        placeholder="Password"
+                                        type="password"
+                                        required
+                                    />
+                                    <button className="flip-card__btn">Let`s go!</button>
+                                </form>
+                            </div>
+                        </div>
+                    </label>
+                </div>   
             </div>
         </div>
     );
