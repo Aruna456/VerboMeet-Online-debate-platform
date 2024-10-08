@@ -261,9 +261,9 @@ function Feed() {
 
             {/* Main content */}
             <div className="flex-grow flex flex-col min-h-screen">
-                <header className="w-full fixed top-0 left-0 right-0 bg-white shadow-md flex items-center justify-between px-8 py-4 z-10">
+                <header className="w-full fixed top-0 left-0 right-0 bg-white shadow-md flex items-center justify-between px-8 py-3 z-10">
                     <button
-                        className="text-2xl font-bold p-1 text-white bg-blue-400 rounded-md"
+                        className="text-2xl font-bold p-1 text-white bg-black rounded-md h-11 w-12"
                         onClick={toggleSidebar}
                     >
                         ☰
@@ -310,7 +310,7 @@ function Feed() {
                                                 </button>
                                                 <div className="flex space-x-2 h-8 mb-4">
                                                     
-                                                    <button className="bg-yellow-400 text-white p-2 rounded-full"
+                                                    <button className="bg-green-500 text-white p-2 rounded-full"
                                                         onClick={() => toggleEditDebatePopup(debate)}  // Edit handler
                                                         aria-label={`Edit debate: ${debate.title}`}  // Accessibility improvement
                                                     >
@@ -345,17 +345,28 @@ function Feed() {
                 {isProfilePopupOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
                         <div className="bg-white rounded-lg p-6 w-80">
-                            <h2 className="text-xl font-bold mb-4">Profile</h2>
+                            <div className="flex justify-end">
+                        <button
+                                             className=" right-4 text-xl  text-gray-700 hover:text-white hover:bg-red-600 h-7 w-7 rounded-full"
+
+                                onClick={toggleProfilePopup}
+                            >
+                                X
+                            </button></div>
+                            <h2 className="text-xl font-bold mb-4 text-center">Profile</h2>
+                            <div className="flex justify-center">
+                            <img
+                                className="w-20 h-20 rounded-full mb-4"
+                                src={profileImage}
+                                alt="Profile"
+                            /></div>
+                            
                             <input
                                 type="file"
                                 onChange={handleImageChange}
                                 className="mb-4"
                             />
-                            <img
-                                className="w-20 h-20 rounded-full mb-4"
-                                src={profileImage}
-                                alt="Profile"
-                            />
+                            
                             <input
                                 type="text"
                                 placeholder="Name"
@@ -376,12 +387,7 @@ function Feed() {
                             >
                                 Save
                             </button>
-                            <button
-                                className="mt-2 text-red-500 hover:underline"
-                                onClick={toggleProfilePopup}
-                            >
-                                Close
-                            </button>
+                         
                         </div>
                     </div>
                 )}
@@ -390,6 +396,14 @@ function Feed() {
                 {isDebateDetailsPopupOpen && selectedDebate && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
                         <div className="bg-white rounded-lg p-6 w-80">
+                        <div className="flex justify-end">
+                        <button
+                                             className=" right-4 text-xl font-bold text-gray-700 hover:text-white hover:bg-red-600 h-7 w-7 rounded-full"
+
+                                             onClick={toggleDebateDetailsPopup}
+                            >
+                                X
+                            </button></div>
                             <h2 className="text-xl font-bold mb-4">{selectedDebate.title}</h2>
                             <p className="mb-4">Description: {selectedDebate.description}</p>
                             <p className="mb-4">Date: <span className="font-semibold">2024-10-15</span></p>
@@ -398,12 +412,7 @@ function Feed() {
                             <button className="bg-blue-500 text-white rounded-md py-2 px-4 w-full">
                                 Register
                             </button>
-                            <button
-                                className="mt-2 text-red-500 hover:underline"
-                                onClick={toggleDebateDetailsPopup}
-                            >
-                                Close
-                            </button>
+                           
                         </div>
                     </div>
                 )}
@@ -412,7 +421,15 @@ function Feed() {
                 {isEditDebatePopupOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
                         <div className="bg-white rounded-lg p-6 w-80">
-                            <h2 className="text-xl font-bold mb-4">Edit Debate</h2>
+                        <div className="flex justify-end">
+                        <button
+                                             className=" right-4 text-xl font-bold text-gray-700 hover:text-white hover:bg-red-600 h-7 w-7 rounded-full"
+
+                                             onClick={toggleEditDebatePopup}
+                            >
+                                X
+                            </button></div>
+                            <h2 className="text-xl font-bold mb-4 text-center">Edit Debate</h2>
                             <form onSubmit={handleEditDebate}>
                                 <input
                                     type="text"
@@ -455,12 +472,7 @@ function Feed() {
                                 >
                                     Save Changes
                                 </button>
-                                <button
-                                    className="mt-2 text-red-500 hover:underline"
-                                    onClick={toggleEditDebatePopup}
-                                >
-                                    Close
-                                </button>
+                                
                             </form>
                         </div>
                     </div>
@@ -471,6 +483,13 @@ function Feed() {
                 {isAddDebatePopupOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
                         <div className="bg-white rounded-lg p-6 w-80">
+                        <div className="flex justify-end">
+                        <button
+                                             className=" right-4 text-xl font-bold text-gray-700 hover:text-white hover:bg-red-600 h-7 w-7 rounded-full"
+                                             onClick={toggleAddDebatePopup}
+                            >
+                                X
+                            </button></div>
                             <h2 className="text-xl font-bold mb-4">Add New Debate</h2>
                             <input
                                 type="text"
@@ -513,12 +532,7 @@ function Feed() {
                             >
                                 Add Debate
                             </button>
-                            <button
-                                className="mt-2 text-red-500 hover:underline"
-                                onClick={toggleAddDebatePopup}
-                            >
-                                Close
-                            </button>
+                          
                         </div>
                     </div>
                 )}
