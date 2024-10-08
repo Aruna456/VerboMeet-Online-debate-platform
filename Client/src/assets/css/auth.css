@@ -67,6 +67,8 @@
     
 }
 
+
+
 .slider {
     box-sizing: border-box;
     border-radius: 5px;
@@ -86,14 +88,14 @@
     box-sizing: border-box;
     position: absolute;
     content: "";
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
     border: 2px solid var(--main-color);
     border-radius: 5px;
-    left: -2px;
-    bottom: 2px;
+    left: 1px;
+    bottom: 1.5px;
     background-color: var(--bg-color);
-    box-shadow: 0 3px 0 var(--main-color);
+    /* box-shadow: 0 3px 0 var(--main-color); */
     transition: 0.3s;
 }
 
