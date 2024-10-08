@@ -57,7 +57,7 @@ function Feed() {
         time: "",
         location: "",
     });
-
+    
     const [isEditDebatePopupOpen, setIsEditDebatePopupOpen] = useState(false);
     const [editDebate, setEditDebate] = useState({
         title: "",
@@ -309,7 +309,7 @@ function Feed() {
                     <div className="w-full max-w-6xl ml-24   mx-auto">
                         <main className="border-2  border-gray-300 rounded-lg p-6 bg-white w-[83vw]  shadow-lg">
                             <div className="mb-6">  
-                                <h3 className="justify-center p-4 font-bold text-2xl w-full flex">Explore!!</h3>
+                                <h3 className="justify-center p-4 font-bold text-blue-600 text-2xl w-full flex">Explore!!</h3>
                                 <input
                                     type="text"
                                     value={searchQuery}
@@ -329,24 +329,24 @@ function Feed() {
                                                 <p className="text-gray-700 px-4 pb-4 flex-grow">{debate.description}</p>
                                                 <div className="flex justify-between items-center px-4 py-2">
                                                 <button
-                                                    className="mb-4 bg-sky-300 text-white px-3 py-1 rounded-full "
+                                                    className="mb-4 bg-blue-400  hover:shadow-lg hover:drop-shadow-sm hover:shadow-blue-500 text-white px-3 py-1 rounded-full "
                                                     onClick={() => toggleDebateDetailsPopup(debate)}
                                                 >
-                                                    Explore
+                                                    Visit
                                                 </button>
                                                 <div className="flex space-x-2 h-8 mb-4">
                                                     
-                                                    <button className="bg-green-500 text-white p-2 rounded-full"
+                                                    <button className="hover:bg-yellow-500 hover:text-white text-yellow-400 p-2 rounded-full"
                                                         onClick={() => toggleEditDebatePopup(debate)}  // Edit handler
                                                         aria-label={`Edit debate: ${debate.title}`}  // Accessibility improvement
                                                     >
-                                                    <i className="fas fa-pencil-alt h-2"></i>
+                                                    <i className="fas fa-pencil-alt w-4"></i>
                                                 </button>
                                                 <button
-                                                    className="bg-red-500 text-white p-2 rounded-full"
+                                                    className="hover:bg-red-500 hover:text-white text-red-600 p-2 rounded-full"
                                                     onClick={() => handleDeleteDebate(debate._id)}  // Delete handler
                                                 >
-                                                    <i className="fas fa-trash h-1" ></i>
+                                                    <i className="fas fa-trash w-4 " ></i>
                                                 </button>
                                             </div>
                                             </div>
@@ -361,7 +361,7 @@ function Feed() {
                     </div>
                 </div>
                 <button
-                    className="fixed bottom-8 right-8 w-12 h-12 bg-blue-500 text-white rounded-full text-2xl flex items-center justify-center"
+                    className="fixed bottom-8 right-8 p-4 w-12 h-12 bg-blue-500 text-white rounded-full text-2xl flex items-center justify-center"
                     onClick={toggleAddDebatePopup}
                 >
                     +
@@ -373,7 +373,7 @@ function Feed() {
                         <div className="bg-white rounded-lg p-6 w-80">
                             <div className="flex justify-end">
                         <button
-                                             className=" right-4 text-xl  text-gray-700 hover:text-white hover:bg-red-600 h-7 w-7 rounded-full"
+                                             className=" right-4 text-xl  text-red-500 hover:text-white hover:bg-red-600 h-7 w-8 rounded-full"
 
                                 onClick={toggleProfilePopup}
                             >
@@ -424,7 +424,7 @@ function Feed() {
                         <div className="bg-white rounded-lg p-6 w-80">
                         <div className="flex justify-end">
                         <button
-                                             className=" right-4 text-xl font-bold text-gray-700 hover:text-white hover:bg-red-600 h-7 w-7 rounded-full"
+                                             className=" right-4 text-xl font-bold text-red-500 hover:text-white hover:bg-red-600 h-7 w-7 rounded-full"
 
                                              onClick={toggleDebateDetailsPopup}
                             >
@@ -432,9 +432,9 @@ function Feed() {
                             </button></div>
                             <h2 className="text-xl font-bold mb-4">{selectedDebate.title}</h2>
                             <p className="mb-4">Description: {selectedDebate.description}</p>
-                            <p className="mb-4">Date: <span className="font-semibold">2024-10-15</span></p>
-                            <p className="mb-4">Time: <span className="font-semibold">14:00</span></p>
-                            <p className="mb-4">Location: <span className="font-semibold">Debate Hall 1</span></p>
+                            <p className="mb-4">Date: <span className="font-semibold">{selectedDebate.date}</span></p>
+                            <p className="mb-4">Time: <span className="font-semibold">{selectedDebate.time}</span></p>
+                            <p className="mb-4">Location: <span className="font-semibold">{selectedDebate.location}</span></p>
                             <button  onClick={handleRegister} className="bg-blue-500 text-white rounded-md py-2 px-4 w-full">
                                 Register
                             </button>
@@ -449,7 +449,7 @@ function Feed() {
                         <div className="bg-white rounded-lg p-6 w-80">
                         <div className="flex justify-end">
                         <button
-                                             className=" right-4 text-xl font-bold text-gray-700 hover:text-white hover:bg-red-600 h-7 w-7 rounded-full"
+                                             className=" right-4 text-xl font-bold text-red-500 hover:text-white hover:bg-red-600 h-7 w-7 rounded-full"
 
                                              onClick={toggleEditDebatePopup}
                             >

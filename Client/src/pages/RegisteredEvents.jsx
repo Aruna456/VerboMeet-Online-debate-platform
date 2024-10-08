@@ -52,7 +52,7 @@ const handleImageChange = (e) => {
   return (
     
 <>
-        <header className="w-full fixed top-0 left-0 right-0 bg-white shadow-md flex items-center justify-between px-8 py-3 z-10">
+        <div className="w-full  fixed top-0 left-0 right-0 bg-white shadow-md flex items-center justify-between px-8 py-3 z-10">
           
 
            <div className="font-bold text-2xl">
@@ -84,25 +84,13 @@ const handleImageChange = (e) => {
             </div>
          
             </ul>
-        </header>
+        </div>
+
+       <div className="">
+
+       </div>
         
 
-    <div className="registered-events-page">
-      <h2>Your Registered Events</h2>
-      {/* {registeredEvents.length > 0 ? (
-        <ul>
-          {registeredEvents.map(event => (
-            <li key={event._id}>
-              <h3>{event.title}</h3>
-              <p><strong>Location:</strong> {event.location}</p>
-              <p><strong>Time:</strong> {event.time}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>You have not registered for any events yet.</p>
-      )} */}
-    </div>
     {isProfilePopupOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
                         <div className="bg-white rounded-lg p-6 w-80">
