@@ -247,37 +247,27 @@ function Feed() {
 
     return (
         <div className="min-h-screen bg-gray-100 flex">
-            {/* Sidebar */}
-            <div
-                className={`fixed top-0 left-0 h-full bg-blue-900 text-white transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-                    } transition-transform duration-300 ease-in-out w-64 p-4 z-20`}
-            >
-                <button className="absolute top-2 right-2 text-xl" onClick={toggleSidebar}>
-                    ✖
-                </button>
-                <h2 className="text-xl font-bold mb-4">Menu</h2>
-                <ul>
-                    <li className="mb-2">
-                        <a href="#" className="hover:underline">Contact Us</a>
-                    </li>
-                    <li className="mb-2">
-                        <a href="#" className="hover:underline">Help</a>
-                    </li>
-                    {/* Add more options here as needed */}
-                </ul>
-            </div>
-
+                  
+                
+      
             {/* Main content */}
             <div className="flex-grow flex flex-col min-h-screen">
-                <header className="w-full fixed top-0 left-0 right-0 bg-white shadow-md flex items-center justify-between px-8 py-3 z-10">
-                    <button
-                        className="text-2xl font-bold p-1 text-white bg-black rounded-md h-11 w-12"
-                        onClick={toggleSidebar}
-                    >
-                        ☰
-                    </button>
 
-                    <div className="flex items-center space-x-4">
+                <header className="w-full fixed top-0 left-0 right-0 bg-white shadow-md flex items-center justify-between px-8 py-3 z-10">
+                  
+ 
+                   <div className="font-bold text-2xl">
+                    VerboMeet
+                   </div>
+
+                   <ul className="flex flex-row list-none gap-5 items-center  ml-auto">
+                    <li className="hover:underline">About</li>
+                    <li className="">Contact</li>
+                    <li className="">Registered</li>
+                   <li>
+
+                    <div className="flex items-center ">
+
                         <span className="hover:underline cursor-pointer" onClick={toggleProfilePopup}>
                             <img
                                 className="w-10 h-10 rounded-full cursor-pointer"
@@ -286,12 +276,16 @@ function Feed() {
                             />
                         </span>
                     </div>
+                   </li>
+                    </ul>
                 </header>
+                
 
                 <div className="flex-grow flex items-center justify-center mt-24 p-4">
                     <div className="w-full max-w-6xl mx-auto">
                         <main className="border-2 border-gray-300 rounded-lg p-6 bg-white shadow-lg">
                             <div className="mb-6">
+                                <h3 className="justify-center p-4 font-bold text-2xl w-full flex">Explore!!</h3>
                                 <input
                                     type="text"
                                     value={searchQuery}
