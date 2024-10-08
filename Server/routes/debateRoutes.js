@@ -39,18 +39,18 @@ router.put('/edit/:id', async (req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
     try {
-        const { id } = req.params;  // Extract the debate ID from the URL parameters
+        const { id } = req.params; 
         
-        const deletedDebate = await Debate.findByIdAndDelete(id);  // Find and delete the debate by ID
+        const deletedDebate = await Debate.findByIdAndDelete(id);  
 
         if (!deletedDebate) {
-            return res.status(404).json({ message: 'Debate not found' });  // If no debate found, return a 404 response
+            return res.status(404).json({ message: 'Debate not found' });  
         }
 
-        res.status(200).json({ message: 'Debate deleted successfully' });  // Send a success response
+        res.status(200).json({ message: 'Debate deleted successfully' }); 
     } catch (error) {
         console.error('Error deleting debate:', error);
-        res.status(500).json({ message: 'Server error' });  // Handle server errors
+        res.status(500).json({ message: 'Server error' });  
     }
 });
 
