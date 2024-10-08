@@ -305,7 +305,7 @@ function Feed() {
                 </header>
                 
 
-                <div className="flex-grow flex items-center                                                                                                         justify-center mt-24 p-4">
+                <div className="flex-grow flex items-center    justify-center mt-24 p-4">
                     <div className="w-full max-w-6xl ml-24   mx-auto">
                         <main className="border-2  border-gray-300 rounded-lg p-6 bg-white w-[83vw]  shadow-lg">
                             <div className="mb-6">  
