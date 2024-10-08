@@ -1,10 +1,29 @@
 import React, { useState ,useEffect} from "react";
 import defaultProfileImg from "../assets/img/debate.png"; 
-import { useNavigate } from "react-router-dom";
+import { useNavigate,NavLink } from "react-router-dom";
 
 
 function Feed() {
     const [debates, setDebates] = useState([]);
+
+    const navlinks=[
+        {
+            path:'/About',
+            title:'About'
+        },
+        {
+            path:'/Contact',
+            title:'Contact'
+        },
+        {
+            path:'/Feed',
+            title:'Explore'
+        },
+        {
+            path:'/registeredevents',
+            title:'Your Events'
+        }
+    ]
 
 
     useEffect(() => {
@@ -23,7 +42,7 @@ function Feed() {
     
 
     const [searchQuery, setSearchQuery] = useState("");
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
     const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
     const [isDebateDetailsPopupOpen, setIsDebateDetailsPopupOpen] = useState(false);
     const [isAddDebatePopupOpen, setIsAddDebatePopupOpen] = useState(false);
@@ -54,9 +73,7 @@ function Feed() {
         debate.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
+  
 
     const toggleProfilePopup = () => {
         setIsProfilePopupOpen(!isProfilePopupOpen);
@@ -101,7 +118,7 @@ function Feed() {
         if (!selectedDebate) {
             console.error('No debate selected for editing');
             alert('No debate selected for editing!');
-            return;  // Early exit if there's no selected debate
+            return;  
         }
     
         try {
@@ -246,7 +263,7 @@ function Feed() {
 
 
     return (
-        <div className="min-h-screen bg-gray-100 flex">
+        <div className="min-h-screen  bg-gray-100 flex">
                   
                 
       
@@ -260,11 +277,18 @@ function Feed() {
                     VerboMeet
                    </div>
 
-                   <ul className="flex flex-row list-none gap-5 items-center  ml-auto">
-                    <li className="hover:underline">About</li>
-                    <li className="">Contact</li>
-                    <li className="">Registered</li>
-                   <li>
+                   <ul className="flex flex-row list-none gap-5 items-center  ml-auto font-bold">
+                    
+                    {
+
+                    navlinks.map((value,index) => (
+                        <NavLink key={index} to={value.path} >
+
+                            <li>{value.title}</li>
+                        </NavLink>
+                    ))
+                    }
+                    
 
                     <div className="flex items-center ">
 
@@ -276,15 +300,15 @@ function Feed() {
                             />
                         </span>
                     </div>
-                   </li>
+                 
                     </ul>
                 </header>
                 
 
-                <div className="flex-grow flex items-center justify-center mt-24 p-4">
-                    <div className="w-full max-w-6xl mx-auto">
-                        <main className="border-2 border-gray-300 rounded-lg p-6 bg-white shadow-lg">
-                            <div className="mb-6">
+                <div className="flex-grow flex items-center                                                                                                         justify-center mt-24 p-4">
+                    <div className="w-full max-w-6xl ml-24   mx-auto">
+                        <main className="border-2  border-gray-300 rounded-lg p-6 bg-white w-[83vw]  shadow-lg">
+                            <div className="mb-6">  
                                 <h3 className="justify-center p-4 font-bold text-2xl w-full flex">Explore!!</h3>
                                 <input
                                     type="text"
@@ -343,7 +367,7 @@ function Feed() {
                     +
                 </button>
 
-                {/* Profile Popup */}
+               
                 {isProfilePopupOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
                         <div className="bg-white rounded-lg p-6 w-80">
@@ -481,7 +505,7 @@ function Feed() {
                 )}
 
 
-                {/* Add Debate Popup */}
+             
                 {isAddDebatePopupOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
                         <div className="bg-white rounded-lg p-6 w-80">
