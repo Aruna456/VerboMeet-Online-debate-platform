@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-
 const RegistrationPage = () => {
   const { debateId } = useParams(); // Debate ID from the route
   const [debate, setDebate] = useState(null);
@@ -28,18 +27,23 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-md rounded-lg p-8 max-w-lg w-full">
+  
+    <div className="flex justify-center items-center min-h-screen ">
+      
+      <div className="bg-slate-100 rounded-lg p-9  h-80 w-96 shadow-2xl">
+      
         {debate ? (
           <>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Register for Debate</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center pb-3 hover:underline">Register for Debate</h2>
             <p className="text-lg text-gray-700 mb-2"><strong>Title:</strong> {debate.title}</p>
             <p className="text-lg text-gray-700 mb-2"><strong>Location:</strong> {debate.location}</p>
             <p className="text-lg text-gray-700 mb-4"><strong>Time:</strong> {debate.time}</p>
 
+            <p className="text-lg text-gray-700 mb-4"><strong>Date:</strong> {debate.date}</p>
+
             <button
               onClick={handleRegister}
-              className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+              className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:rounded-full transition duration-300"
             >
               Confirm Registration
             </button>
