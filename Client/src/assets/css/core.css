@@ -43,9 +43,9 @@ border-radius: 10px;
 }
 
 .primary-color {
-  background: #1c92d2;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #f2fcfe, #1c92d2);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #f2fcfe, #1c92d2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #1c92d2;
+  background: -webkit-linear-gradient(to right, #f2fcfe, #1c92d2); 
+  background: linear-gradient(to right, #f2fcfe, #1c92d2); 
   
 }
 
@@ -58,7 +58,6 @@ border-radius: 10px;
   border-bottom: 2px solid #1c92d2;
 }
 
-/* From Uiverse.io by Saad3092003 */ 
 .button1 {
   font-family: inherit;
   font-size: 18px;
@@ -150,7 +149,6 @@ border-radius: 10px;
 }
 
 
-/* From Uiverse.io by barisdogansutcu */ 
 .getbutton {
   display: flex;
   align-items: center;

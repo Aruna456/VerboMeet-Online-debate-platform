@@ -24,7 +24,6 @@ const Profile = () => {
         console.log("Profile updated:", { name, email, profileImage });
         nav('/Feed')
     };
-
     return (
         <div className="flex flex-col items-center mt-12">
             <h2 className="text-2xl font-bold mb-4">Profile</h2>

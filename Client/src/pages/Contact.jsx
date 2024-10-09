@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import Photo from "../assets/img/Debatebg.jpg"; // Background image
+import Photo from "../assets/img/Debatebg.jpg"; 
 
 const Contact = () => {
     return (

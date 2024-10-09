@@ -13,13 +13,13 @@
     -webkit-backdrop-filter: blur(10px); 
     border-radius: 10px;
     
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
 
-    /* Centering content */
+ 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Vertically center content */
+    justify-content: center; 
     margin-top: 50px;
     height: 600px; 
     width: 800px; 
@@ -95,7 +95,7 @@
     left: 1px;
     bottom: 1.5px;
     background-color: var(--bg-color);
-    /* box-shadow: 0 3px 0 var(--main-color); */
+
     transition: 0.3s;
 }
 
@@ -115,10 +115,9 @@
     text-decoration: underline;
 }
 
-/* flip-card styles for the Sign Up/Log In card */
 .flip-card__inner {
-    width: 300px; /* Width of the sign-in card */
-    height: 350px; /* Height of the sign-in card */
+    width: 300px; 
+    height: 350px; 
     position: relative;
     background-color: transparent;
     perspective: 1000px;
@@ -140,9 +139,9 @@
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 
-    background: rgba(255, 255, 255, 0.2);  /* Semi-transparent background for glassy effect */
-    backdrop-filter: blur(10px); /* Frosted glass for card */
-    -webkit-backdrop-filter: blur(10px);  /* Safari support */
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); 
 
     gap: 20px;
     border-radius: 5px;

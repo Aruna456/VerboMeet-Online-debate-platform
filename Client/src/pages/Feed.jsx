@@ -67,8 +67,6 @@ function Feed() {
         location: "",
     });
 
-
-
     const filteredDebates = debates.filter((debate) =>
         debate.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -140,7 +138,7 @@ function Feed() {
                     time: "",
                     location: "",
                 });
-                setIsEditDebatePopupOpen(false); // Close the popup after successful edit
+                setIsEditDebatePopupOpen(false); 
             } else {
                 const data = await response.json();
                 alert(data.message || 'Failed to edit debate');
@@ -151,9 +149,6 @@ function Feed() {
         }
     };
     
-    
-    
-
     const handleAddDebate = async (e) => {
         e.preventDefault();
     
@@ -208,8 +203,7 @@ function Feed() {
             }
         }
     };
-    
-    
+        
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -255,32 +249,18 @@ function Feed() {
 
     const navigate=useNavigate()
 
-    const handleRegister =()=>{
-
-        navigate('/register')
-
-    }
-
-
+    const handleRegister = () => {
+        navigate('/register', { state: selectedDebate});
+    };
     return (
         <div className="min-h-screen  bg-gray-100 flex">
-                  
-                
-      
-            {/* Main content */}
             <div className="flex-grow flex flex-col min-h-screen">
-
                 <header className="w-full fixed top-0 left-0 right-0 bg-white shadow-md flex items-center justify-between px-8 py-3 z-10">
-                  
- 
                    <div className="font-bold text-2xl">
                     VerboMeet
                    </div>
-
                    <ul className="flex flex-row list-none gap-5 items-center  ml-auto font-bold">
-                    
                     {
-
                     navlinks.map((value,index) => (
                         <NavLink key={index} to={value.path} >
 
@@ -288,7 +268,6 @@ function Feed() {
                         </NavLink>
                     ))
                     }
-                    
 
                     <div className="flex items-center ">
 
@@ -304,7 +283,6 @@ function Feed() {
                     </ul>
                 </header>
                 
-
                 <div className="flex-grow flex items-center    justify-center mt-24 p-4">
                     <div className="w-full max-w-6xl ml-24   mx-auto">
                         <main className="border-2  border-gray-300 rounded-lg p-6 bg-white w-[83vw]  shadow-lg">
@@ -318,8 +296,7 @@ function Feed() {
                                     className="border px-4 py-2 w-full rounded"
                                 />
                             </div>
-
-                            {/* Flex Row for Debates */}
+                   
                             <div className="flex flex-wrap -mx-4">
                                 {filteredDebates.length > 0 ? (
                                     filteredDebates.map((debate, index) => (
@@ -337,14 +314,14 @@ function Feed() {
                                                 <div className="flex space-x-2 h-8 mb-4">
                                                     
                                                     <button className="hover:bg-yellow-500 hover:text-white text-yellow-400  rounded-full"
-                                                        onClick={() => toggleEditDebatePopup(debate)}  // Edit handler
-                                                        aria-label={`Edit debate: ${debate.title}`}  // Accessibility improvement
+                                                        onClick={() => toggleEditDebatePopup(debate)}  
+                                                        aria-label={`Edit debate: ${debate.title}`}  
                                                     >
                                                     <i className="fas fa-pencil-alt w-10"></i>
                                                 </button>
                                                 <button
                                                     className="hover:bg-red-500 hover:text-white text-red-600 rounded-full"
-                                                    onClick={() => handleDeleteDebate(debate._id)}  // Delete handler
+                                                    onClick={() => handleDeleteDebate(debate._id)} 
                                                 >
                                                     <i className="fas fa-trash w-10 " ></i>
                                                 </button>
@@ -367,7 +344,6 @@ function Feed() {
                     +
                 </button>
 
-               
                 {isProfilePopupOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
                         <div className="bg-white rounded-lg p-6 w-80">
@@ -418,7 +394,6 @@ function Feed() {
                     </div>
                 )}
 
-                {/* Debate Details Popup */}
                 {isDebateDetailsPopupOpen && selectedDebate && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
                         <div className="bg-white rounded-lg p-6 w-80">
@@ -443,7 +418,6 @@ function Feed() {
                     </div>
                 )}
 
-                {/* Edit Debate Popup */}
                 {isEditDebatePopupOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
                         <div className="bg-white rounded-lg p-6 w-80">
@@ -504,8 +478,6 @@ function Feed() {
                     </div>
                 )}
 
-
-             
                 {isAddDebatePopupOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
                         <div className="bg-white rounded-lg p-6 w-80">

@@ -5,6 +5,7 @@ const app = express()
 const dbConn = require('./config/db')
 const authRoutes = require('./routes/userRoute');
 const debateRoutes = require('./routes/debateRoutes'); 
+const regRoutes = require('./routes/regRoutes'); 
 app.use(express.json())
 
 

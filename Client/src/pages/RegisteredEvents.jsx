@@ -1,20 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Photo from "../assets/img/Debatebg.jpg";
 import defaultProfileImg from "../assets/img/debate.png"; 
 import { NavLink } from 'react-router-dom';
 
 const RegisteredEventsPage = () => {
   const [registeredEvents, setRegisteredEvents] = useState([
-    { title: "Hii", location: "cbe", time: "12:00" },
-    { title: "Hii", location: "cbe", time: "12:00" },
-    { title: "Hii", location: "cbe", time: "12:00" },
-    { title: "Hii", location: "cbe", time: "12:00" },
-    { title: "Hii", location: "cbe", time: "12:00" },
-    { title: "Hii", location: "cbe", time: "12:00" },
-    { title: "Hii", location: "cbe", time: "12:00" },
-    { title: "Hii", location: "cbe", time: "12:00" },
-    { title: "Hii", location: "cbe", time: "12:00" },
+    // { title: "Hii", location: "cbe", time: "12:00" },
+    // { title: "Hii", location: "cbe", time: "12:00" },
+    // { title: "Hii", location: "cbe", time: "12:00" },
+    // { title: "Hii", location: "cbe", time: "12:00" },
+    // { title: "Hii", location: "cbe", time: "12:00" },
+    // { title: "Hii", location: "cbe", time: "12:00" },
+    // { title: "Hii", location: "cbe", time: "12:00" },
+    // { title: "Hii", location: "cbe", time: "12:00" },
+    // { title: "Hii", location: "cbe", time: "12:00" },
   ]);
+  
+  useEffect(() => {
+    const fetchEvents = async () => {
+        try {
+          const response = await fetch(`http://localhost:5000/api/register/user/${userId}`);
+          const data = await response.json();
+            setDebates(data);
+        } catch (error) {
+            console.error('Error fetching debates:', error);
+        }
+    };
+
+    fetchEvents();
+}, []);
+
+
   
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
   const [profileImage, setProfileImage] = useState(defaultProfileImg);
@@ -42,6 +58,17 @@ const RegisteredEventsPage = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  const handleUnregister = async (eventId) => {
+    try {
+        await fetch(`http://localhost:5000/api/register/unregister/${eventId}`, {
+            method: 'DELETE',
+        });
+        setRegisteredEvents(registeredEvents.filter(event => event._id !== eventId));
+    } catch (error) {
+        console.error('Error unregistering event:', error);
+    }
+};
 
   return (
     <>
@@ -79,7 +106,7 @@ const RegisteredEventsPage = () => {
                     <p className="text-sm text-gray-500">Location: {event.location}</p>
                     <p className="text-sm text-gray-500">Time: {event.time}</p>
                   </div>
-                  <button className="bg-red-500 text-white px-4 py-2 rounded-md">Unregister</button>
+                  <button className="bg-red-500 text-white px-4 py-2 rounded-md" onClick={() => handleUnregister(event._id)}>Unregister</button>
                 </div>
               ))
             ) : (
