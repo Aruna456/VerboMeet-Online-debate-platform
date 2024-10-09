@@ -1,42 +1,25 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Photo from "../assets/img/Debatebg.jpg";
 import defaultProfileImg from "../assets/img/debate.png"; 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const RegisteredEventsPage = () => {
-  const [registeredEvents, setRegisteredEvents] = useState([
-    // { title: "Hii", location: "cbe", time: "12:00" },
-    // { title: "Hii", location: "cbe", time: "12:00" },
-    // { title: "Hii", location: "cbe", time: "12:00" },
-    // { title: "Hii", location: "cbe", time: "12:00" },
-    // { title: "Hii", location: "cbe", time: "12:00" },
-    // { title: "Hii", location: "cbe", time: "12:00" },
-    // { title: "Hii", location: "cbe", time: "12:00" },
-    // { title: "Hii", location: "cbe", time: "12:00" },
-    // { title: "Hii", location: "cbe", time: "12:00" },
-  ]);
-  
+  const location = useLocation();
+  const [registeredEvents, setRegisteredEvents] = useState([]);
+  const { debateDetails } = location.state || {}; 
+
   useEffect(() => {
-    const fetchEvents = async () => {
-        try {
-          const response = await fetch(`http://localhost:5000/api/register/user/${userId}`);
-          const data = await response.json();
-            setDebates(data);
-        } catch (error) {
-            console.error('Error fetching debates:', error);
-        }
-    };
+    if (debateDetails && registeredEvents.findIndex(event => event._id === debateDetails._id) === -1) {
+      
+      setRegisteredEvents((prevEvents) => [...prevEvents, debateDetails]);
+    }
+  }, [debateDetails]);
 
-    fetchEvents();
-}, []);
-
-
-  
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
   const [profileImage, setProfileImage] = useState(defaultProfileImg);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  
+
   const navlinks = [
     { path: '/About', title: 'About' },
     { path: '/Contact', title: 'Contact' },
@@ -59,16 +42,9 @@ const RegisteredEventsPage = () => {
     }
   };
 
-  const handleUnregister = async (eventId) => {
-    try {
-        await fetch(`http://localhost:5000/api/register/unregister/${eventId}`, {
-            method: 'DELETE',
-        });
-        setRegisteredEvents(registeredEvents.filter(event => event._id !== eventId));
-    } catch (error) {
-        console.error('Error unregistering event:', error);
-    }
-};
+  const handleUnregister = (eventId) => {
+    setRegisteredEvents(registeredEvents.filter(event => event._id !== eventId));
+  };
 
   return (
     <>
@@ -93,7 +69,7 @@ const RegisteredEventsPage = () => {
         style={{ backgroundImage: `url(${Photo})`, backgroundSize: 'cover' }}
       >
         <div className="shadow-lg drop-shadow-lg homecard-blur flex flex-col justify-center h-[70vh] w-[70vw] p-6">
-          <h2 className="text-4xl font-bold mb-4 text-center text-stroke ">Your Registered Events</h2>
+          <h2 className="text-4xl font-bold mb-4 text-center text-stroke">Your Registered Events</h2>
           <div className="flex flex-col items-center justify-start overflow-y-auto max-h-[50vh] w-full">
             {registeredEvents.length > 0 ? (
               registeredEvents.map((event, index) => (

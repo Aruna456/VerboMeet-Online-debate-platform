@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Photo from "../assets/img/Debatebg.jpg";
+
 const RegistrationPage = () => {
   const [user, setUser] = useState(null);
   const location = useLocation();
-  const debateDetails = location.state;
-  const { debateId } = useParams(); 
-  const [debate, setDebate] = useState(null);
+  const debateDetails = location.state; 
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+
   
   useEffect(() => {
-    const fetchDebate = async () => {
-      const res = await axios.get(`/api/debates/${debateId}`);
-      setDebate(res.data);
-    };
-    fetchDebate();
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       try {
@@ -25,22 +19,20 @@ const RegistrationPage = () => {
         console.error('Error parsing user from localStorage:', error);
       }
     }
-  }, [debateId]);
+  }, []);
 
-  const handleRegister = async () => {
-    try {
-      const res = await axios.post(`/api/debates/${debateId}/register`);
-      setMessage('Successfully registered for the debate.');
-      setTimeout(() => navigate('/registered-events'), 2000); 
-    } catch (error) {
-      setMessage('Error registering for the debate.');
-    }
+
+  const handleRegister = () => {
+    alert("Successfully registered for the debate");
+ 
+    navigate('/registeredevents', { state: { debateDetails } });
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen "> 
-      <div className="bg-slate-100 rounded-lg p-9  h-90 w-96 shadow-2xl">
-        {debate ? (
+    
+    <div className="flex justify-center items-center min-h-screen   " style={{ backgroundImage: `url(${Photo})`, backgroundSize: 'cover' }}> 
+      <div className="bg-slate-100 rounded-lg p-9 h-90 w-96 shadow-2xl">
+        {debateDetails ? (
           <>
             <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center pb-3 hover:underline">Register for Debate</h2>
             <p className="text-lg text-gray-700 mb-2"><strong>Title: </strong> {debateDetails.title}</p>

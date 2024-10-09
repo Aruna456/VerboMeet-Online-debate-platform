@@ -249,6 +249,8 @@ function Feed() {
 
     const navigate=useNavigate()
 
+  
+
     const handleRegister = () => {
         navigate('/register', { state: selectedDebate});
     };
